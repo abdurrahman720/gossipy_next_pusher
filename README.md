@@ -1,5 +1,5 @@
 
-**This site is still under development. Soon the production will be in Live! In the meantime, explore the code structure and technologies used here.**
+**This application is still under development. Soon the production will be in Live! In the meantime, explore the code structure and technologies used here.**
 
 # Gossipy
 **A Real time chat application using NextJs, Pusher , Prisma and MongoDb**
