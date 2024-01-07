@@ -1,14 +1,12 @@
 "use client"
 import React from 'react';
-import Button from '../Components/Button';
-import { signOut } from 'next-auth/react';
+import EmptyState from '../Components/EmptyState';
 
 const page = () => {
     return (
-        <Button onClick={()=>signOut()}>
-            Logout
-        </Button>
+        <div className='hidden lg:block lg:pl-80 h-full'>
+            <EmptyState/>
+       </div>
     );
 };
-
 export default page;

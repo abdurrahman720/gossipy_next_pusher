@@ -14,16 +14,16 @@ import { useRouter } from "next/navigation";
 type Variant = "LOGIN" | "REGISTER";
 
 const AuthForm = () => {
-    const session = useSession();
-    const router = useRouter()
+  const session = useSession();
+  const router = useRouter();
   const [variant, setVariant] = useState<Variant>("LOGIN");
-    const [isLoading, setIsLoading] = useState(false);
-    
-    useEffect(() => {
-        if (session?.status === 'authenticated') {
-            router.push('/users')
-        }
-    },[session?.status,router])
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (session?.status === "authenticated") {
+      router.push("/users");
+    }
+  }, [session?.status, router]);
 
   const toggleVariant = useCallback(() => {
     if (variant === "LOGIN") {
@@ -49,50 +49,53 @@ const AuthForm = () => {
     setIsLoading(true);
 
     if (variant === "REGISTER") {
-        axios.post('/api/register', data)
-            .then(()=>signIn('credentials',data))
-            .catch(() => {
-            toast.error('Something Went Wrong!')
-        }).finally(() => {
-setIsLoading(false)
-        }
-        )
+      axios
+        .post("/api/register", data)
+        .then(() => signIn("credentials", data))
+        .catch(() => {
+          toast.error("Something Went Wrong!");
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
 
     if (variant === "LOGIN") {
-        signIn('credentials', {
-            ...data,
-            redirect: false
-        }).then((callback) => {
-
-            if (callback?.error) {
-              toast.error('Invalid Credentials')
-            }
-            if (callback?.ok && !callback?.error) {
-                toast.success('Logged In!')
-            }
-        }).finally(() => {
-          setIsLoading(false)
+      signIn("credentials", {
+        ...data,
+        redirect: false,
       })
+        .then((callback) => {
+          if (callback?.error) {
+            toast.error("Invalid Credentials");
+          }
+          if (callback?.ok && !callback?.error) {
+            toast.success("Logged In!");
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
 
   const socialAction = (action: string) => {
-      setIsLoading(true);
-      
-      signIn(action, {
-          redirect:false
-      }).then(callback => {
+    setIsLoading(true);
+
+    signIn(action, {
+      redirect: false,
+    })
+      .then((callback) => {
         if (callback?.error) {
-            toast.error('Invalid Credentials')
-          }
-          if (callback?.ok && !callback?.error) {
-              toast.success('Logged In!')
-          }
-      }).finally(() => {
-        setIsLoading(false)
-      }
-      )
+          toast.error("Invalid Credentials");
+        }
+        if (callback?.ok && !callback?.error) {
+          toast.success("Logged In!");
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -105,8 +108,8 @@ setIsLoading(false)
               register={register}
               id="name"
               type="text"
-                          errors={errors}
-                          disabled={isLoading}
+              errors={errors}
+              disabled={isLoading}
             />
           )}
 
@@ -115,8 +118,8 @@ setIsLoading(false)
             register={register}
             id="email"
             type="email"
-                      errors={errors}
-                      disabled={isLoading}
+            errors={errors}
+            disabled={isLoading}
           />
 
           <Input
@@ -124,8 +127,8 @@ setIsLoading(false)
             register={register}
             id="password"
             type="password"
-                      errors={errors}
-                      disabled={isLoading}
+            errors={errors}
+            disabled={isLoading}
           />
           <Button disabled={isLoading} type="submit" fullWidth>
             {variant === "LOGIN" ? "Sign In" : "Register"}
