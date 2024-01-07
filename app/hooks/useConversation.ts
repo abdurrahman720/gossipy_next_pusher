@@ -21,4 +21,6 @@ const useConversation = () => {
 
 export default useConversation;
 
+// we need to get the conversationId from params to get to know if there is any conversation with this user 
+// isOpen indicates that the particular conversation is open right now
 
