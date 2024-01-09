@@ -3,8 +3,8 @@ import getConversations from "../actions/getConversations";
 import ConversationList from "./components/ConversationList";
 
 
-const ConversationsLayoutComponent =async ({ children }: { children: React.ReactNode }) => {
-    const conversations = getConversations();
+const ConversationsLayout =async ({ children }: { children: React.ReactNode }) => {
+    const conversations = await getConversations();
     return ( 
         <Sidebar>
             <div className="h-full">
@@ -15,6 +15,5 @@ const ConversationsLayoutComponent =async ({ children }: { children: React.React
      );
 }
  
-export default ConversationsLayoutComponent;
+export default ConversationsLayout;
 
-//we 

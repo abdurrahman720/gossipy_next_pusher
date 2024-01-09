@@ -10,25 +10,25 @@ const getConversations = async() => {
     }
 
     try {
-        const conversations = await prisma.conversation.findMany({
-            orderBy: {
-                lastMessageAt: 'desc'
-            },
-            where: {
-                userIds: {
-                    has: currentUser.id
-                }
-            },
+      const conversations = await prisma.conversation.findMany({
+        orderBy: {
+          lastMessageAt: 'desc',
+        },
+        where: {
+          userIds: {
+            has: currentUser.id
+          }
+        },
+        include: {
+          users: true,
+          messages: {
             include: {
-                users: true,
-                messages: {
-                    include: {
-                        sender: true,
-                        seen: true
-                    }
-                }
+              sender: true,
+              seen: true,
             }
-        });
+          },
+        }
+      });
 
         return conversations
      }
