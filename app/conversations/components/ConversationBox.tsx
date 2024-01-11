@@ -77,15 +77,20 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
             <p className="text-md font-medium text-gray-900">
               {data.name || otherUser.name}
             </p>
-            {lastMessage?.created_at && (
+            {lastMessage?.createdAt && (
               <p className="text-sx text-gray-400 font-light">
-                {format(new Date(lastMessage.created_at), "p")}
+                {format(new Date(lastMessage.createdAt), "p")}
               </p>
             )}
-                  </div>
-                  <p className={clsx(`truncate text-sm`, hasSeen ? 'text-gray-500' :'text-black font-medium')}>
-                      {lastMessageText}
-                  </p>
+          </div>
+          <p
+            className={clsx(
+              `truncate text-sm`,
+              hasSeen ? "text-gray-500" : "text-black font-medium"
+            )}
+          >
+            {lastMessageText}
+          </p>
         </div>
       </div>
     </div>
