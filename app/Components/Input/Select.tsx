@@ -1,6 +1,7 @@
 "use client"
 
-import ReactSelect from "react-select"
+import ReactSelect from "react-select";
+import makeAnimated from 'react-select/animated';
 
 
 interface SelectProps{
@@ -11,14 +12,15 @@ interface SelectProps{
     disabled?: boolean
 }
 
-const Select:React.FC<SelectProps> = ({label, value, onChange, options, disabled}) => {
+const Select: React.FC<SelectProps> = ({ label, value, onChange, options, disabled }) => {
+    const animatedComponents = makeAnimated();
     return ( 
         <div className="z-[100]">
             <label className="block text-sm font-medium leading-6 text-gray-900">
                 {label}
             </label>
             <div className="mt-2">
-                <ReactSelect isDisabled={disabled} value={value} onChange={onChange} options={options} isMulti menuPortalTarget={document.body} 
+                <ReactSelect components={animatedComponents} isDisabled={disabled} value={value} onChange={onChange} options={options} isMulti menuPortalTarget={document.body} 
                     styles={{
                         menuPortal: (base) => ({
                             ...base,
