@@ -1,12 +1,14 @@
 "use client";
 
 import Avatar from "@/app/Components/Avatar";
+import Modal from "@/app/Components/Modal";
 import useOtherUser from "@/app/hooks/useOtherUser";
 import { Dialog, Transition } from "@headlessui/react";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
-import { Fragment, useMemo } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { IoClose, IoTrash } from "react-icons/io5";
+import ConfirmModal from "./ConfirmModal";
 
 interface ProfileDrawerProps {
   data: Conversation & {
@@ -22,6 +24,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
   isOpen,
 }) => {
   const otherUser = useOtherUser(data);
+  const [confirmOpen, setConfirmOpen] = useState(false)
 
   const joinedDate = useMemo(() => {
     return format(new Date(otherUser.createdAt), "PP");
@@ -40,7 +43,11 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
   }, [data.isGroup, data.users.length]);
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <>
+      <ConfirmModal isOpen={confirmOpen} onClose={() => { setConfirmOpen(false) }}/>
+        
+ 
+     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
         <Transition.Child
           as={Fragment}
@@ -92,9 +99,9 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                         <div className="flex gap-10 my-8">
                           <div
                             className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75"
-                            onClick={() => {}}
+                            onClick={()=>setConfirmOpen(true)}
                           >
-                            <div className="w-10 h-10 bg-neutral-100 rounded-full flex items-center justify-center">
+                            <div  className="w-10 h-10 bg-neutral-100 rounded-full flex items-center justify-center">
                               <IoTrash size={20} />
                             </div>
                             <div className="text-sm font-light text-neutral-600">
@@ -141,6 +148,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
         </div>
       </Dialog>
     </Transition.Root>
+    </>
   );
 };
 

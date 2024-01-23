@@ -22,38 +22,50 @@ const Form = () => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-      setValue("message", "", { shouldValidate: true });
-      
-      console.log("data", data)
+    setValue("message", "", { shouldValidate: true });
+
+    console.log("data", data);
 
     axios.post("/api/messages", {
       ...data,
       conversationId,
     });
   };
-    
-    const handleUpload = (result: any) => {
-        console.log("image",result)
-        axios.post("/api/messages", {
-            image: result?.info?.secure_url,
-            conversationId
-        })
-    }
+
+  const handleUpload = (result: any) => {
+    console.log("image", result);
+    axios.post("/api/messages", {
+      image: result?.info?.secure_url,
+      conversationId,
+    });
+  };
 
   return (
-    
-      <div className="py-4 px-4 bg-white border-t flex items-center t gap-2 lg:gap-2 w-full">
-          <CldUploadButton options={{maxFiles:1}} onUpload={handleUpload} uploadPreset="cizpd0jx" >
-          <HiPhoto size={30} className="text-orange-500" />
-          </CldUploadButton>
-     
+    <div className="py-4 px-4 bg-white border-t flex items-center t gap-2 lg:gap-2 w-full">
+      <CldUploadButton
+        options={{ maxFiles: 1 }}
+        onUpload={handleUpload}
+        uploadPreset="cizpd0jx"
+      >
+        <HiPhoto size={30} className="text-orange-500" />
+      </CldUploadButton>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex items-center gap-2 lg:gap-4 w-full"
-          >
-              <MessageInput id="message" register={register} errors={errors} required placeholder="write a message" />
-              <button type="submit" className="rounded-full p-2 bg-orange-500 cursor-pointer hover:bg-orange-600 transition ">
-          <HiPaperAirplane className="text-white"/>
+      >
+        <MessageInput
+          id="message"
+          register={register}
+          errors={errors}
+          required
+          placeholder="write a message"
+        />
+        <button
+          type="submit"
+          className="rounded-full p-2 bg-orange-500 cursor-pointer hover:bg-orange-600 transition "
+        >
+          <HiPaperAirplane className="text-white" />
         </button>
       </form>
     </div>
