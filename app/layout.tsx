@@ -20,12 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ActiveStatus>
+      
         <AuthContext>
-        <ToasterContext />
+          <ToasterContext />
+          <ActiveStatus/>
         {children}
         </AuthContext>
-       </ActiveStatus>
+    
         
       </body>
     </html>
