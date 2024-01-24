@@ -38,11 +38,26 @@ const Body: React.FC<BodyProps> = ({ initialMessages=[] }) => {
             })
         }
 
+        const updateMessageHandler = (newMessage: FullMessageType) => { //we are getting newMessage in the call back from pusher event 'message:update'
+            setMessages((current) => current.map((currentMessage) => {
+                if (currentMessage.id === newMessage.id) {
+                    console.log("new message", newMessage)
+                    return newMessage;
+                    
+                }
+                console.log("current message", currentMessage)
+                return currentMessage;
+            }))
+            
+        }
+
         pusherClient.bind('messages:new', messageHandler);
+        pusherClient.bind('messages:update', updateMessageHandler);
 
         return () => {
             pusherClient.unsubscribe(conversationId);
-            pusherClient.unbind('messages:new',messageHandler)
+            pusherClient.unbind('messages:new', messageHandler);
+            pusherClient.unbind('message:update', updateMessageHandler)
         }
 
 

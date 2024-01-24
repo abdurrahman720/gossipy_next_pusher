@@ -24,6 +24,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ isLast, data }) => {
     const seenList = (data.seen || []).filter((user) => user.email !== data.sender?.email).map((user) => user.name).join(',')
     //Antonio, Mark, John
 
+    console.log("seen", seenList)
  
 
 
@@ -63,7 +64,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ isLast, data }) => {
                 </div>
                 {
                     isLast && isOwn && seenList.length > 0 && (
-                        <div className="text-xs font-light text-gray-100">
+                        <div className="text-xs font-light text-gray-600">
                             {`seen by ${seenList}`}
                         </div>
                     )
