@@ -36,6 +36,8 @@ const Body: React.FC<BodyProps> = ({ initialMessages=[] }) => {
 
                 return [...current, message]
             })
+
+            bottomRef?.current?.scrollIntoView();
         }
 
         const updateMessageHandler = (newMessage: FullMessageType) => { //we are getting newMessage in the call back from pusher event 'message:update'
